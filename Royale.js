@@ -45,15 +45,25 @@ class Royale {
           // prettier-ignore
           `*The Slack Royale has begun!*\n Time ends in ${this.timer / 1000 / 60} minutes\n rule: ${this.rule.description}`,
           { icon_emoji: ":alert:" },
-          () => setTimeout(this.purgePlayers.bind(this), this.timer)
+          () => {
+            if (this.purge) clearTimeout(this.purge);
+            this.purge = setTimeout(this.purgePlayers.bind(this), this.timer);
+          }
         );
       });
+  }
+
+  end() {
+    this.loop = false;
+    this.players = [];
+    clearTimeout(this.purge);
   }
 
   handleMessage(msg) {
     console.log(msg);
 
     let player = this.getPlayer(msg.user);
+    if (!player) return;
 
     if (this.rule.test(msg.text)) {
       console.log("PASS");
@@ -71,11 +81,12 @@ class Royale {
           : "";
 
       // Post update to channel and check for end condition
-      bot.postMessageToChannel(
-        this.channelName,
-        `<@${player.id}> has been eliminated! ${remainingString}`,
-        this.checkEnd()
-      );
+      bot
+        .postMessageToChannel(
+          this.channelName,
+          `<@${player.id}> has been eliminated! ${remainingString}`
+        )
+        .then(() => this.checkEnd());
     }
   }
 
@@ -83,7 +94,8 @@ class Royale {
     if (
       msg.type === "message" &&
       msg.channel === this.channel.id &&
-      this.getPlayer(msg.user) &&
+      msg.user &&
+      // this.getPlayer(msg.user) &&
       !msg.text.includes("<@UHGUX2T7G>")
     ) {
       callback(msg);
@@ -91,7 +103,7 @@ class Royale {
   }
 
   purgePlayers() {
-    console.log("Purging");
+    console.log("Purging", this.timer);
 
     // Exit early if we've already determined the game has ended elsewhere
     if (!this.playing) return;
@@ -126,7 +138,7 @@ class Royale {
           }!`
         );
 
-        setTimeout(this.purgePlayers.bind(this), this.timer);
+        this.purge = setTimeout(this.purgePlayers.bind(this), this.timer);
       }
     });
   }
