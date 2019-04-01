@@ -1,5 +1,6 @@
 const SlackBot = require("slackbots");
-const Royale = require("./Royale.js");
+const Royale = require("./src/Royale.js");
+const config = require("./config.json");
 
 // TODO:
 // set channel topic to rule (probably needs different API)
@@ -9,17 +10,13 @@ const Royale = require("./Royale.js");
 let games = {};
 let channels;
 
-const bot = new SlackBot({
-  token: "xoxb-113239146807-594983095254-4AVm4ZmUZJpffks7fGLF5no1",
-  name: "Slack Royale"
-});
+const bot = new SlackBot(config);
 
 const defaults = {
   initialTime: 60,
   loop: false
 };
 
-// Start Handler
 bot.on("start", () => {
   bot.getChannels().then(result => {
     channels = result.channels;
@@ -27,14 +24,15 @@ bot.on("start", () => {
 });
 
 bot.on("message", msg => {
-  if (msg.text && msg.text.substr(0, 12) === "<@UHGUX2T7G>") {
+  if (msg.text && msg.text.substr(0, 12) === `<@${config.botId}>`) {
+    let channelName = channels.find(channel => channel.id === msg.channel).name;
+
     let command = msg.text
       .toLowerCase()
       .substr(13)
       .trim()
       .split(" ");
 
-    let channelName = channels.find(channel => channel.id === msg.channel).name;
     switch (command[0]) {
       case "begin":
         if (games[msg.channel]) games[msg.channel].stop();

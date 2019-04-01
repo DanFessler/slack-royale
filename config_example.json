@@ -1,0 +1,5 @@
+{
+  "name": "Slack Royale",
+  "token": "your-bot-token-here",
+  "botId": "your-bot-user-id"
+}
