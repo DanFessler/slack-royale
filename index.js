@@ -2,10 +2,8 @@ const SlackBot = require("slackbots");
 const Royale = require("./Royale.js");
 
 // TODO:
-// set channel topic to rule
-// finish rules
+// set channel topic to rule (probably needs different API)
 // scoreboard
-// maybe shouldn't create new instances for each game start
 // round end warning
 
 let games = {};

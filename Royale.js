@@ -29,7 +29,7 @@ class Royale {
   startRound(callback) {
     console.log("Start");
 
-    return bot
+    return this.bot
       .getChannel(this.channelName)
       .then(channel => {
         this.channel = channel;
@@ -83,7 +83,7 @@ class Royale {
           : "";
 
       // Post update to channel and check for end condition
-      bot
+      this.bot
         .postMessageToChannel(
           this.channelName,
           `<@${player.id}> has been eliminated! ${remainingString}`
