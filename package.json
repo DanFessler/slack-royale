@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "jest"
   },
   "author": "Dan Fessler",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
     "slackbots": "^1.2.0"
+  },
+  "devDependencies": {
+    "jest": "^24.5.0"
   }
 }
