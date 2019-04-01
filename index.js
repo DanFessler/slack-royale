@@ -2,11 +2,11 @@ const SlackBot = require("slackbots");
 const Royale = require("./Royale.js");
 
 // TODO:
-// Currently there's no way to delete event listeners
-// so I'll have to create singleton royale instances per channel
-// and start and stop the game within the class rather than
-// instantiate new instances for each game
-// Another option is to externally pipe messages to all instances
+// set channel topic to rule
+// finish rules
+// scoreboard
+// maybe shouldn't create new instances for each game start
+// round end warning
 
 let games = {};
 let channels;
@@ -36,29 +36,25 @@ bot.on("message", msg => {
       .trim()
       .split(" ");
 
-    let name = channels.find(channel => channel.id === msg.channel).name;
+    let channelName = channels.find(channel => channel.id === msg.channel).name;
     switch (command[0]) {
       case "begin":
+        if (games[msg.channel]) games[msg.channel].stop();
         games[msg.channel] = new Royale(
-          name,
+          bot,
+          channelName,
           command[1] !== undefined ? command[1] : defaults.initialTime,
           command[2] !== undefined ? command[2] : defaults.loop
         );
         break;
       case "end":
         if (games[msg.channel]) {
-          // bot.postMessageToChannel(name, "Game forcefully ended");
-          // delete games[msg.channel];
-          games[msg.channel].end();
+          games[msg.channel].stop();
         }
         break;
-      // case "initialTime":
-      //   initialTime = command[1] * 60 * 1000;
-      //   break;
-      // case "loop":
-      //   loop = command[1] === "true";
-      //   post(`The game will ${!loop ? "not " : ""}restart automatically`);
-      //   break;
+      // who's alive?
+      // what's the score?
+      // how much time remaining?
     }
   }
 });
