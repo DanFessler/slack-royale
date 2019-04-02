@@ -7,13 +7,16 @@ const config = require("./config.json");
 // scoreboard
 // round end warning
 // clamp round timer to minutes, not seconds
-// check i'm not racist but rule
-// shuffle rules
+// shorter rounds?
+// escape emotes?
+// make new rule more visible
 
 // IDEA:
 // attacking players
 // emote rule
-// & breaks capital rule
+// lazy elimination
+// resource emotes
+// giphy round
 
 let games = {};
 let channels;
