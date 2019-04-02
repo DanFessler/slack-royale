@@ -1,4 +1,5 @@
 const rules = require("./rules.js");
+const _ = require("underscore");
 
 class Royale {
   constructor(bot, channelName, initialTime, loop) {
@@ -38,6 +39,7 @@ class Royale {
       })
       .then(users => {
         this.players = this.filterPlayers(users.members);
+        this.rules = _.shuffle(rules);
         this.rule = this.newRule();
         this.playing = true;
         this.timer = this.initialTime;
@@ -60,6 +62,9 @@ class Royale {
     // return rules[Math.floor(Math.random() * Math.floor(rules.length))];
     this.ruleIndex = (this.ruleIndex + 1) % rules.length;
     return rules[this.ruleIndex];
+    // return this.rules[Math.floor(Math.random() * Math.floor(this.rules.length))];
+    this.ruleIndex = (this.ruleIndex + 1) % this.rules.length;
+    return this.rules[this.ruleIndex];
   }
 
   stop() {
