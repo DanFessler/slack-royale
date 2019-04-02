@@ -1,3 +1,5 @@
+const _ = require("underscore");
+
 const rules = [
   {
     description: `no caps`,
@@ -9,9 +11,16 @@ const rules = [
   },
   {
     description: `ALL CAPS`,
-    test: msg => msg === msg.toUpperCase(),
+    test: msg =>
+      _.unescape(escapeEmotes(msg)) ===
+      _.unescape(escapeEmotes(msg)).toUpperCase(),
     examples: {
-      true: ["THIS SENTENCE IS IN ALL CAPS!"],
+      true: [
+        "THIS SENTENCE IS IN ALL CAPS!",
+        "!@#$%^&*()",
+        "!@#$%^&amp;*()",
+        "TESTING EMOTES :disappointed:"
+      ],
       false: ["thiS SENTENCE has mIXEd caps!"]
     }
   },
@@ -41,13 +50,9 @@ const rules = [
   },
   {
     description: `I'm not racist, but...`,
-    test: msg =>
-      msg.toLowerCase().includes("i'm not racist, but") ||
-      msg.toLowerCase().includes("im not racist, but") ||
-      msg.toLowerCase().includes("im not racist but") ||
-      msg.toLowerCase().includes("i'm not racist but"),
+    test: msg => /i.?m not racist.? but/gi.test(msg),
     examples: {
-      true: ["so I'm not racist but I like cheese"],
+      true: ["I’m not racist but", "so I'm not racist but I like cheese"],
       false: ["actually I'm kind of racist"]
     }
   },
@@ -99,12 +104,20 @@ const rules = [
   },
   {
     description: `No double let̸ters`,
-    test: msg => msg.search(/([a-zA-Z])\1/g) === -1,
+    test: msg => escapeEmotes(msg).search(/([a-zA-Z])\1/g) === -1,
     examples: {
-      true: ["this has no double leters"],
+      true: [
+        "this has no double leters",
+        "hard one",
+        "escapeing emotes :disappointed:"
+      ],
       false: ["this has no double letters"]
     }
   }
 ];
+
+function escapeEmotes(msg) {
+  return msg.replace(/:.+?:/g, "");
+}
 
 module.exports = rules;
