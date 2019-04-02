@@ -121,7 +121,7 @@ class Royale {
     this.players.forEach(player => {
       if (!player.moved) {
         player.purge = true;
-        deathReport += `<@${player.name}> was eliminated for inactivity\n`;
+        deathReport += `<@${player.id}> was eliminated for inactivity\n`;
       } else {
         // Mark players to unsafe again
         player.moved = false;
