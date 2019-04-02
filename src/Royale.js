@@ -8,6 +8,7 @@ class Royale {
     this.listen = this.listen.bind(this);
     this.purgePlayers = this.purgePlayers.bind(this);
     this.startRound = this.startRound.bind(this);
+    this.ruleIndex = 0;
 
     this.channelName = channelName;
     this.loop = loop !== undefined ? loop : true;
@@ -56,7 +57,9 @@ class Royale {
   }
 
   newRule() {
-    return rules[Math.floor(Math.random() * Math.floor(rules.length))];
+    // return rules[Math.floor(Math.random() * Math.floor(rules.length))];
+    this.ruleIndex = (this.ruleIndex + 1) % rules.length;
+    return rules[this.ruleIndex];
   }
 
   stop() {
@@ -128,6 +131,9 @@ class Royale {
     // Decrease circle timer
     this.timer = Math.max(Math.ceil(this.timer / 1000 / 2) * 1000, 1000);
 
+    // Get new rule
+    this.rule = this.newRule();
+
     // Post death report
     this.bot.postMessageToChannel(this.channelName, deathReport).then(() => {
       if (!this.checkEnd()) {
@@ -135,11 +141,10 @@ class Royale {
           this.channelName,
           `${this.players.length} players remain. Round ends in ${
             this.timer >= 60000
-              ? this.timer / 1000 / 60 + "minutes"
-              : this.timer / 1000 + "seconds"
-          }!`
+              ? this.timer / 1000 / 60 + " minutes"
+              : this.timer / 1000 + " seconds"
+          }!\n rule: ${this.rule.description}`
         );
-        this.rule = this.newRule();
         this.purgeTimeout = setTimeout(this.purgePlayers, this.timer);
       }
     });
