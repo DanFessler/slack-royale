@@ -7,13 +7,11 @@ const config = require("./config.json");
 // scoreboard
 // round end warning
 // clamp round timer to minutes, not seconds
-// shorter rounds?
-// escape emotes?
+// reduce rounds less?
 // make new rule more visible
 
 // IDEA:
 // attacking players
-// emote rule
 // lazy elimination
 // resource emotes
 // giphy round
