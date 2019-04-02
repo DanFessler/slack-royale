@@ -2,10 +2,11 @@ const rules = require("./rules.js");
 const _ = require("underscore");
 
 class Royale {
-  constructor(bot, channelName, initialTime, loop) {
+  constructor(bot, botId, channelName, initialTime, loop) {
     console.log("Constructing new battle royale");
 
     this.bot = bot;
+    this.botId = botId;
     this.listen = this.listen.bind(this);
     this.purgePlayers = this.purgePlayers.bind(this);
     this.startGame = this.startGame.bind(this);
@@ -103,7 +104,7 @@ class Royale {
       msg.channel === this.channel.id &&
       msg.user &&
       this.getPlayer(msg.user) &&
-      !msg.text.includes("<@UHGUX2T7G>")
+      !msg.text.includes(`<@${this.botId}>`)
     ) {
       callback(msg);
     }
