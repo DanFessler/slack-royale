@@ -7,7 +7,7 @@ class Royale {
     this.bot = bot;
     this.listen = this.listen.bind(this);
     this.purgePlayers = this.purgePlayers.bind(this);
-    this.startRound = this.startRound.bind(this);
+    this.startGame = this.startGame.bind(this);
     this.ruleIndex = 0;
 
     this.channelName = channelName;
@@ -18,7 +18,7 @@ class Royale {
     this.playing = false;
 
     // Set up round, then begin listening for messages
-    this.startRound(() => {
+    this.startGame(() => {
       this.bot.on("message", this.listen);
     });
   }
@@ -27,7 +27,7 @@ class Royale {
     this.filterMessage(msg, msg => this.handleMessage(msg));
   }
 
-  startRound(callback) {
+  startGame(callback) {
     console.log("Start");
 
     return this.bot
@@ -176,7 +176,7 @@ class Royale {
 
     // Restart the game if loop was set to true
     if (this.loop)
-      this.startTimeout = setTimeout(this.startRound, this.restartTimer);
+      this.startTimeout = setTimeout(this.startGame, this.restartTimer);
 
     return true;
   }
