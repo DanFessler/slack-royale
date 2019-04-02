@@ -113,6 +113,14 @@ const rules = [
       ],
       false: ["this has no double letters"]
     }
+  },
+  {
+    description: `Must use emote`,
+    test: msg => msg.search(/:.+?:/g) !== -1,
+    examples: {
+      true: ["this is an emote :disappointed:", ":two: :emotes:"],
+      false: ["this has no emotes"]
+    }
   }
 ];
 
