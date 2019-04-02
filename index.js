@@ -1,6 +1,23 @@
 const SlackBot = require("slackbots");
 const Royale = require("./src/Royale.js");
-const config = require("./config.json");
+const fs = require('fs')
+
+let config = {}
+
+if (fs.existsSync("./config.json")) {
+  config = require("./config.json")
+}
+else if(process.env.BOT_NAME && process.env.BOT_TOKEN && process.env.BOT_ID) {
+  config = {
+    name: process.env.BOT_NAME,
+    token: process.env.BOT_TOKEN,
+    botId: process.env.BOT_ID
+  };
+}
+else {
+  console.error("Couldn't find config.json or environment variables BOT_NAME, BOT_TOKEN, BOT_ID");
+  return;
+}
 
 // TODO:
 // set channel topic to rule (probably needs different API)
