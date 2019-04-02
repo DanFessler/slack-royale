@@ -47,7 +47,7 @@ bot.on("message", msg => {
         if (games[msg.channel]) games[msg.channel].stop();
         games[msg.channel] = new Royale(
           bot,
-          botId,
+          config.botId,
           channelName,
           command[1] !== undefined ? command[1] : defaults.initialTime,
           command[2] !== undefined ? command[2] : defaults.loop
