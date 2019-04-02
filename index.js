@@ -6,6 +6,14 @@ const config = require("./config.json");
 // set channel topic to rule (probably needs different API)
 // scoreboard
 // round end warning
+// clamp round timer to minutes, not seconds
+// check i'm not racist but rule
+// shuffle rules
+
+// IDEA:
+// attacking players
+// emote rule
+// & breaks capital rule
 
 let games = {};
 let channels;
