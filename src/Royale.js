@@ -59,9 +59,6 @@ class Royale {
   }
 
   newRule() {
-    // return rules[Math.floor(Math.random() * Math.floor(rules.length))];
-    this.ruleIndex = (this.ruleIndex + 1) % rules.length;
-    return rules[this.ruleIndex];
     // return this.rules[Math.floor(Math.random() * Math.floor(this.rules.length))];
     this.ruleIndex = (this.ruleIndex + 1) % this.rules.length;
     return this.rules[this.ruleIndex];
