@@ -49,14 +49,6 @@ const rules = [
     }
   },
   {
-    description: `I'm not racist, but...`,
-    test: msg => /i.?m not racist.? but/gi.test(msg),
-    examples: {
-      true: ["I’m not racist but", "so I'm not racist but I like cheese"],
-      false: ["actually I'm kind of racist"]
-    }
-  },
-  {
     description: `Actually...`,
     test: msg => msg.toLowerCase().substring(0, 8) === "actually",
     examples: {
