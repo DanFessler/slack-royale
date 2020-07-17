@@ -1,5 +1,5 @@
 # slack-royale
-Compete to be the last player standing in the Battle Royale that plays right inside your slack channels. 
+Compete to be the last player standing in the Battle Royale that plays right inside your slack channels.
 
 ## About
 + Each round a new rule is chosen at random.
@@ -13,7 +13,6 @@ Compete to be the last player standing in the Battle Royale that plays right ins
 + nospaces
 + Must say 'dude'
 + Must say 'I love you'
-+ I'm not racist, but...
 + Actually...
 + no punctuation
 + lasT letteR capitalizeD onlY
