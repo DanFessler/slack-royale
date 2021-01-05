@@ -10,7 +10,7 @@
   "author": "Dan Fessler",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "slackbots": "^1.2.0",
     "underscore": "^1.9.1"
   },
